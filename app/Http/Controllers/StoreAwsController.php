@@ -14,6 +14,8 @@ class StoreAwsController extends Controller
     use FilesUpload;
 
     public function storeFile(Request $request) {
+
+        // do not forget to require auth to store file
         
         try {
 
@@ -60,6 +62,23 @@ class StoreAwsController extends Controller
         ];
 
         return response($s3File, 200, $headers);
+    }
+
+    public function deleteFile(Request $request, $id) {
+
+        // do not forget to require auth to delete file
+
+        $file = Upload::find($id);
+
+        if (!$file) {
+            dd('file not found');
+        }
+
+        $s3File = Storage::disk('s3')->delete($file->cloud_path);
+
+        $file->delete();
+
+        return back();
     }
 
     public function getFilesData() {

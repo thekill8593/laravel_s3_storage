@@ -28,3 +28,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('upload', 'StoreAwsController@storeFile')->name('upload');
 Route::get('download/{id}', 'StoreAwsController@getFile')->name('download');
 Route::get('files', 'StoreAwsController@getFilesData')->name('files');
+Route::delete('file/{id}', 'StoreAwsController@deleteFile')->name('delete');

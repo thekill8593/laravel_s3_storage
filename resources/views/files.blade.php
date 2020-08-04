@@ -9,7 +9,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Size</th>
-                        <th>Download</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -17,7 +17,16 @@
                     <tr>
                         <td>{{ $file->original_name }} </td>
                         <td>{{ $file->size / 1000 }} </td>
-                        <td><a href="{{ route('download', ['id' => $file->id ]) }}" target="_blank">Download</a></td>
+                        <td>
+                            <a class="btn btn-primary mb-2" href="{{ route('download', ['id' => $file->id ]) }}"
+                                target="_blank">Download</a>
+                            <form action="{{ route('delete', ['id' => $file->id ]) }}" method="post">
+                                @csrf
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="submit" class="btn btn-primary" value="Delete">
+                            </form>
+
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
